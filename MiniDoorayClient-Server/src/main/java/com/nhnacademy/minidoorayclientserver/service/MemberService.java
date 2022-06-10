@@ -5,4 +5,6 @@ import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 
 public interface MemberService {
     MemberResponseDto registerToMember(MemberRequestDto memberRequestDto);
+
+    MemberResponseDto updateToMember(MemberRequestDto memberRequestDto, Long memberNo);
 }

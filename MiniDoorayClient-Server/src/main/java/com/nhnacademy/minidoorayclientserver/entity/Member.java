@@ -1,14 +1,12 @@
 package com.nhnacademy.minidoorayclientserver.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
 import static javax.persistence.GenerationType.*;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,6 +14,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "member")
 public class Member {
 
+    //TODO 엔티티 클래스 단에서 Valid 가능??
     @Id
     @Column(name = "member_number")
     @GeneratedValue(strategy = IDENTITY)

@@ -9,16 +9,19 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+
+//TODO : 차후 해결 현재로써는 해결하기 힘듬.
 @Controller
+@RequestMapping("/error")
 public class ErrorPageController implements ErrorController {
 
-    @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request) {
+
         ModelAndView modelAndView = new ModelAndView("error");
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 modelAndView.addObject("exception"
