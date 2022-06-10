@@ -21,16 +21,13 @@ public class MemberAdaptorImpl implements MemberAdaptor {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         HttpEntity<MemberRequestDto> httpEntity = new HttpEntity<>(memberRequestDto, headers);
-
         HttpEntity<MemberResponseDto> response = restTemplate.exchange(
                 "http://localhost:9090/member/register",
                 HttpMethod.POST,
                 httpEntity,
                 MemberResponseDto.class
         );
-
         MemberResponseDto memberResponseDto = response.getBody();
-
         if(memberResponseDto == null) {
             throw new IllegalStateException();
         }

@@ -16,9 +16,12 @@ public class MemberRequestDto {
    @Size(max = 20)
    private String memberId;
    @NotBlank
-   @Size(max = 50)
+   @Size(max = 40)
    private String memberPassword;
    @NotBlank
-   @Size(max = 50)
+   @Size(max = 40)
    private String memberEmail;
+   @NotBlank
+   @Size(max = 5)
+   private String memberStatus;
 }

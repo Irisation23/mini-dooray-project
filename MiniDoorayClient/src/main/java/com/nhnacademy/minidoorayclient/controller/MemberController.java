@@ -21,7 +21,7 @@ public class MemberController {
         return new ModelAndView("member-register");
     }
 
-    @PostMapping("/member/register")
+    @PostMapping("/member/register") // TODO : BindingResult final 이유는 ???
     ModelAndView doRegister(@Validated MemberRequestDto memberRequestDto , final BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -32,4 +32,6 @@ public class MemberController {
         modelAndView.addObject("member",memberService.register(memberRequestDto));
         return modelAndView;
     }
+
+    // TODO : Member Update
 }

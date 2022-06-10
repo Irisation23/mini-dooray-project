@@ -23,8 +23,6 @@ public class MemberServiceImpl implements MemberService {
                 .build();
 
         return memberAdaptor.register(encodingMemberRequestDto);
-
-
     }
 }
 

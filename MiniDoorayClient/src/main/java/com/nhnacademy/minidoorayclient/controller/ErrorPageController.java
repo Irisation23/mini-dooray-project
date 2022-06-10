@@ -10,9 +10,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/error")
 public class ErrorPageController implements ErrorController {
 
-    @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("error");
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
