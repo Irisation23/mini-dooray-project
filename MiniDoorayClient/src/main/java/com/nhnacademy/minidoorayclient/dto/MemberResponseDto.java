@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class MemberResponseDto {
-
+    // TODO: 검증 해야함
     private String memberEmail;
     private String memberId;
 }
