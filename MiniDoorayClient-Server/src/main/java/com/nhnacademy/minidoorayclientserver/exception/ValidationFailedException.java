@@ -1,4 +1,4 @@
-package com.nhnacademy.minidoorayclient.exception;
+package com.nhnacademy.minidoorayclientserver.exception;
 
 import org.springframework.validation.BindingResult;
 

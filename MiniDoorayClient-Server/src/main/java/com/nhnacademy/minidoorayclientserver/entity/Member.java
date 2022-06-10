@@ -30,9 +30,13 @@ public class Member {
     @Column(name = "member_email")
     private String memberEmail;
 
-    public Member(String memberId, String memberPassword, String memberEmail) {
+    @Column(name = "member_status")
+    private String memberStatus;
+
+    public Member(String memberId, String memberPassword, String memberEmail, String memberStatus) {
         this.memberId = memberId;
         this.memberPassword = memberPassword;
         this.memberEmail = memberEmail;
+        this.memberStatus = memberStatus;
     }
 }

@@ -17,7 +17,7 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @PostMapping(value = "/member/register")
-    MemberResponseDto registerToMember(@RequestBody @Valid MemberRequestDto memberRequestDto) {
+    MemberResponseDto registerToMember(final @RequestBody @Valid MemberRequestDto memberRequestDto) {
         return memberService.registerToMember(memberRequestDto);
     }
 }

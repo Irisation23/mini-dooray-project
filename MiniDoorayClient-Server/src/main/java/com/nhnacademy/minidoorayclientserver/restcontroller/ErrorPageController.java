@@ -1,4 +1,4 @@
-package com.nhnacademy.minidoorayclient.controller;
+package com.nhnacademy.minidoorayclientserver.restcontroller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,6 @@ public class ErrorPageController implements ErrorController {
                 return modelAndView;
             }
         }
-        request.getAttribute("exception");
 
         return modelAndView;
     }

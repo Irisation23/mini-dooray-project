@@ -1,16 +1,27 @@
 package com.nhnacademy.minidoorayclientserver.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class MemberRequestDto {
 
-    // TODO : Validation 확실히 처리 해야 함.
-    @NonNull
+    @NotBlank
+    @Size(max = 20)
     private String memberId;
-    @NonNull
+    @NotBlank
+    @Size(max = 20)
     private String memberPassword;
-    @NonNull
+    @NotBlank
+    @Size(max = 40)
     private String memberEmail;
+    @NotBlank
+    @Size(max = 5)
+    private String memberStatus;
 }

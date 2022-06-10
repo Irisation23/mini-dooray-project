@@ -19,7 +19,8 @@ public class MemberServiceImpl implements MemberService{
     public MemberResponseDto registerToMember(MemberRequestDto memberRequestDto) {
         Member member = new Member(memberRequestDto.getMemberId()
                 , memberRequestDto.getMemberPassword()
-                , memberRequestDto.getMemberEmail());
+                , memberRequestDto.getMemberEmail()
+                , memberRequestDto.getMemberStatus());
 
         memberRepository.saveAndFlush(member);
 
