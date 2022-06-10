@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class MemberRestController {
@@ -15,7 +17,7 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @PostMapping(value = "/member/register")
-    MemberResponseDto registerToMember(@RequestBody MemberRequestDto memberRequestDto) {
+    MemberResponseDto registerToMember(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         return memberService.registerToMember(memberRequestDto);
     }
 }
