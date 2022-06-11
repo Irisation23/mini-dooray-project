@@ -1,5 +1,6 @@
 package com.nhnacademy.minidoorayclientserver.restcontroller;
 
+import com.nhnacademy.minidoorayclientserver.dto.request.MemberRegisterRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.request.MemberRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclientserver.service.MemberService;
@@ -18,8 +19,8 @@ public class MemberRestController {
     private final MemberService memberService;
 
     @PostMapping(value = "/member/register")
-    MemberResponseDto registerToMember(final @RequestBody @Validated MemberRequestDto memberRequestDto) {
-        return memberService.registerToMember(memberRequestDto);
+    MemberResponseDto registerToMember(final @RequestBody @Validated MemberRegisterRequestDto memberRegisterRequestDto) {
+        return memberService.registerToMember(memberRegisterRequestDto);
     }
 
     @PostMapping(value = "/member/{memberNo}/update")

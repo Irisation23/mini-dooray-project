@@ -17,12 +17,12 @@ public class MemberRequestDto {
     @Size(max = 20)
     private String memberId;
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 100)
     private String memberPassword;
     @NotBlank
-    @Size(max = 40)
+    @Size(max = 100)
     private String memberEmail;
-    @NotBlank
-    @Size(max = 5)
+    @NotNull
+    @Size(max = 10)
     private String memberStatus;
 }

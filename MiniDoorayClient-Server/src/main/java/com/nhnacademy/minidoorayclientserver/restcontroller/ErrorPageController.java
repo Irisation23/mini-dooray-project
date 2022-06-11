@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ErrorPageController implements ErrorController {
 
     public ModelAndView handleError(HttpServletRequest request) {
-
         ModelAndView modelAndView = new ModelAndView("error");
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 

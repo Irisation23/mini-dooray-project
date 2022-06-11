@@ -1,5 +1,6 @@
 package com.nhnacademy.minidoorayclientserver.service;
 
+import com.nhnacademy.minidoorayclientserver.dto.request.MemberRegisterRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.request.MemberRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclientserver.entity.Member;
@@ -17,12 +18,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public MemberResponseDto registerToMember(MemberRequestDto memberRequestDto) {
+    public MemberResponseDto registerToMember(MemberRegisterRequestDto memberRegisterRequestDto) {
 
-        Member member = new Member(memberRequestDto.getMemberId()
-                , memberRequestDto.getMemberPassword()
-                , memberRequestDto.getMemberEmail()
-                , memberRequestDto.getMemberStatus());
+        // TODO : 해당 회원이 존재하면 SQL 예외를 던지도록 처리.
+        Member member = new Member(memberRegisterRequestDto.getMemberId()
+                , memberRegisterRequestDto.getMemberPassword()
+                , memberRegisterRequestDto.getMemberEmail()
+                , "join");
 
         memberRepository.saveAndFlush(member);
 
@@ -35,7 +37,8 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public MemberResponseDto updateToMember(MemberRequestDto memberRequestDto, Long memberNo) {
 
-        Member member = memberRepository.findById(memberNo).orElseThrow(() ->new NotFindMemberException("해당 회원은 존재하지 않습니다."));
+        Member member = memberRepository.findById(memberNo)
+                .orElseThrow(() ->new NotFindMemberException("해당 회원은 존재하지 않습니다."));
 
         Member updateMember = Member.builder()
                 .memberNo(member.getMemberNo())
