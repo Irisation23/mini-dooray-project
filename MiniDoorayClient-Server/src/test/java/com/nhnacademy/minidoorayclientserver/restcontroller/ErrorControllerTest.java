@@ -32,7 +32,7 @@ class ErrorControllerTest {
     HttpServletRequest httpServletRequest;
 
     @SpyBean
-    ErrorController errorPageController;
+    ErrorCheckController errorPageController;
 
     @Test
     void handleError404() throws Exception {

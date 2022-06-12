@@ -1,2 +1,6 @@
-package com.nhnacademy.minidoorayclientserver.entity.authority;public class Authority {
+package com.nhnacademy.minidoorayclientserver.entity.authority;
+
+public enum Authority {
+    ROLE_ADMIN,
+    ROLE_USER
 }

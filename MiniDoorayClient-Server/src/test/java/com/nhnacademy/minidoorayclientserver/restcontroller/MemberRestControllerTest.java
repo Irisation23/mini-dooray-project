@@ -2,9 +2,11 @@ package com.nhnacademy.minidoorayclientserver.restcontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nhnacademy.minidoorayclientserver.dto.request.MemberRegisterRequestDto;
-import com.nhnacademy.minidoorayclientserver.dto.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclientserver.dto.request.MemberUpdateRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclientserver.entity.Member;
+import com.nhnacademy.minidoorayclientserver.entity.authority.Authority;
+import com.nhnacademy.minidoorayclientserver.entity.status.Status;
 import com.nhnacademy.minidoorayclientserver.repository.MemberRepository;
 import com.nhnacademy.minidoorayclientserver.service.MemberService;
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,8 +19,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
+
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -46,7 +51,8 @@ class MemberRestControllerTest {
                 , "hello"
                 , "qweorjroiw#@@#@$@#"
                 , "bunsung123@naver.com"
-                , "join"
+                , Status.ACTIVATION
+                , Authority.ROLE_USER
         );
         memberRepository.saveAndFlush(member);
 
@@ -76,12 +82,12 @@ class MemberRestControllerTest {
 
     @Test
     void updateApiToUpdateMemberValidation() throws Exception {
-        MemberRequestDto memberRequestDto = new MemberRequestDto("kim"
+        MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto("kim"
                 , "123"
                 , "123@naver.com"
                 , "여기는 사이즈 오류가 걸림!");
 
-        String userDtoJsonString = objectMapper.writeValueAsString(memberRequestDto);
+        String userDtoJsonString = objectMapper.writeValueAsString(memberUpdateRequestDto);
 
         mockMvc.perform(post("/member/13/update")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,33 +104,64 @@ class MemberRestControllerTest {
                 .memberId("kim")
                 .memberPassword("12345")
                 .memberEmail("123@naver.com")
-                .memberStatus("join")
+                .memberStatus(Status.ACTIVATION)
+                .memberAuthority(Authority.ROLE_USER)
                 .build();
 
         memberRepository.saveAndFlush(member);
 
-        MemberRequestDto memberRequestDto = new MemberRequestDto("kim"
+        MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto("kim"
                 , "1234"
                 , "bunsung92@naver.com"
                 , "hi");
-
-        String userDtoJsonString = objectMapper.writeValueAsString(memberRequestDto);
 
         when(memberRepository.findById(15L)).thenReturn(Optional.of(member));
         when(memberRepository.findByMemberNo(15L)).thenReturn(MemberResponseDto.builder()
                 .memberEmail("bunsung92@naver.com")
                 .memberId("kim")
                 .memberStatus("hi")
+                .memberStatus(Status.ACTIVATION.toString())
+                .memberAuthority(Authority.ROLE_USER.toString())
                 .build());
 
-        when(memberService.updateToMember(memberRequestDto, 15L)).thenReturn(MemberResponseDto.builder()
+        when(memberService.updateToMember(memberUpdateRequestDto, 15L)).thenReturn(MemberResponseDto.builder()
                         .memberEmail("bunsung92@naver.com")
                         .memberId("kim")
                         .memberStatus("hi")
-                .build());
+                        .memberStatus(Status.ACTIVATION.toString())
+                        .memberAuthority(Authority.ROLE_USER.toString())
+                        .build());
+
+        String userDtoJsonString = objectMapper.writeValueAsString(memberUpdateRequestDto);
+
         mockMvc.perform(post("/member/15/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDtoJsonString))
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    void findByMemberEmailSuccess() throws Exception {
+        mockMvc.perform(get("/member?email=gnsals4848@naver.com")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void findByMemberEmailFail() throws Exception {
+        mockMvc.perform(get("/member?emai=  ")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void findByMemberEmailValidException() throws Exception {
+        //given(memberRestController.findByMemberEmail(any())).isEqualTo(new ValidationFailedException());
+
+        mockMvc.perform(get("/member?email=  ")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+
 }

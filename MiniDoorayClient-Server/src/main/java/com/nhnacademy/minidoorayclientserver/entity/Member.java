@@ -1,6 +1,8 @@
 package com.nhnacademy.minidoorayclientserver.entity;
 
 
+import com.nhnacademy.minidoorayclientserver.entity.authority.Authority;
+import com.nhnacademy.minidoorayclientserver.entity.status.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,12 +32,22 @@ public class Member {
     private String memberEmail;
 
     @Column(name = "member_status")
-    private String memberStatus;
+    @Enumerated(EnumType.STRING)
+    private Status memberStatus;
 
-    public Member(String memberId, String memberPassword, String memberEmail, String memberStatus) {
+    @Column(name = "member_authority")
+    @Enumerated(EnumType.STRING)
+    private Authority memberAuthority;
+
+    public Member(String memberId
+            , String memberPassword
+            , String memberEmail
+            , Status memberStatus
+            , Authority memberAuthority) {
         this.memberId = memberId;
         this.memberPassword = memberPassword;
         this.memberEmail = memberEmail;
         this.memberStatus = memberStatus;
+        this.memberAuthority = memberAuthority;
     }
 }

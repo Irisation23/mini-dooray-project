@@ -1,15 +1,12 @@
 package com.nhnacademy.minidoorayclientserver.restcontroller;
 
 import com.nhnacademy.minidoorayclientserver.dto.request.MemberRegisterRequestDto;
-import com.nhnacademy.minidoorayclientserver.dto.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclientserver.dto.request.MemberUpdateRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclientserver.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -24,8 +21,18 @@ public class MemberRestController {
     }
 
     @PostMapping(value = "/member/{memberNo}/update")
-    MemberResponseDto updateToMember(final @RequestBody @Validated MemberRequestDto memberRequestDto
+    MemberResponseDto updateToMember(final @RequestBody @Validated MemberUpdateRequestDto memberUpdateRequestDto
             , @PathVariable(value = "memberNo") Long memberNo) {
-        return memberService.updateToMember(memberRequestDto, memberNo);
+        return memberService.updateToMember(memberUpdateRequestDto, memberNo);
+    }
+
+    @GetMapping(value = "/member")
+    MemberResponseDto findByMemberEmail(@RequestParam("email") String email) {
+        return memberService.findByMemberEmail(email);
+    }
+
+    @GetMapping(value = "/member/check")
+    MemberResponseDto getByMemberId(@RequestParam("username") String memberId) {
+        return memberService.getByMemberId(memberId);
     }
 }
