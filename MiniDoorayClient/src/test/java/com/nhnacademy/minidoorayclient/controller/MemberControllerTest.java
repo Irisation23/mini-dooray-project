@@ -1,17 +1,13 @@
 package com.nhnacademy.minidoorayclient.controller;
 
-import com.nhnacademy.minidoorayclient.adaptor.MemberAdaptor;
-import com.nhnacademy.minidoorayclient.dto.MemberRequestDto;
-import com.nhnacademy.minidoorayclient.service.MemberService;
+import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -22,25 +18,13 @@ import static org.mockito.Mockito.*;
 class MemberControllerTest {
 
     @SpyBean
-    private MemberAdaptor mockMemberAdaptor;
-
-    @SpyBean
     private MemberController mockMemberController;
-
-    @SpyBean
-    private MemberService mockMemberService;
 
     @MockBean
     private BindingResult mockBindingResult;
 
     @MockBean
     private MemberRequestDto mockMemberRequestDto;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-//    @Autowired
-//    private TestRestTemplate testRestTemplate;
 
     @Test
     void doRegisterValidExceptionTest() throws Exception {

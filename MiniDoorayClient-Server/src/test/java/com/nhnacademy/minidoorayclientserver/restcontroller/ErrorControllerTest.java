@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ErrorPageControllerTest {
+class ErrorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,7 +32,7 @@ class ErrorPageControllerTest {
     HttpServletRequest httpServletRequest;
 
     @SpyBean
-    ErrorPageController errorPageController;
+    ErrorController errorPageController;
 
     @Test
     void handleError404() throws Exception {

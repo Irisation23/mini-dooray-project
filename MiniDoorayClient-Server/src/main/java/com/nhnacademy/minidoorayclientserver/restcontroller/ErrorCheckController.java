@@ -1,11 +1,10 @@
 package com.nhnacademy.minidoorayclientserver.restcontroller;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.boot.web.servlet.error.ErrorController;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 //TODO : 차후 해결 현재로써는 해결하기 힘듬.
 @Controller
 @RequestMapping("/error")
-public class ErrorPageController implements ErrorController {
+public class ErrorCheckController implements ErrorController {
 
     public ModelAndView handleError(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("error");

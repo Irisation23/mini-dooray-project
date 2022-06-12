@@ -1,10 +1,21 @@
 package com.nhnacademy.minidoorayclient.service;
 
 import com.nhnacademy.minidoorayclient.adaptor.MemberAdaptor;
-import com.nhnacademy.minidoorayclient.dto.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.response.MemberResponseDto;
+import com.nhnacademy.minidoorayclient.vo.SecurityUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,9 +24,9 @@ public class MemberServiceImpl implements MemberService {
     private final MemberAdaptor memberAdaptor;
     private final PasswordEncoder passwordEncoder;
 
-    // TODO: CUD 에 대해서 트랜잭션 처리
     @Override
     public String register(MemberRequestDto memberRequestDto) {
+
         MemberRequestDto encodingMemberRequestDto = MemberRequestDto.builder()
                 .memberId(memberRequestDto.getMemberId())
                 .memberPassword(passwordEncoder.encode(memberRequestDto.getMemberPassword()))
@@ -24,7 +35,58 @@ public class MemberServiceImpl implements MemberService {
 
         return memberAdaptor.register(encodingMemberRequestDto);
     }
+
+    @Override
+    public SecurityUser findByMemberEmail(String email) {
+
+        MemberResponseDto responseDto = memberAdaptor.findByMemberEmail(email);
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(responseDto.getMemberAuthority());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(simpleGrantedAuthority);
+
+        SecurityUser securityUser = SecurityUser.builder()
+                .memberNo(responseDto.getMemberNo())
+                .memberId(responseDto.getMemberId())
+                .memberPassword(responseDto.getMemberPassword())
+                .memberEmail(responseDto.getMemberEmail())
+                .memberStatus(responseDto.getMemberStatus())
+                .build();
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser.getUsername()
+                , securityUser.getPassword()
+                , authorities);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
+
+        return securityUser;
+        //TODO : -------------------------------로그인 해야 됨--------------------------------------------------------------
+    }
 }
+
+/*
+    @Override
+    public SecurityUser checkExistEmail(String email) {
+        Resident resident = residentRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFindResidentException("해당 이메일을 가진 주민이 존재하지 않습니다."));
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(simpleGrantedAuthority);
+
+        SecurityUser securityUser = new SecurityUser(resident.getUserName(), resident.getPassword(),
+                resident.getEmail(), authorities, resident.getResidentSerialNumber());
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser
+                , "USER_PASSWORD"
+                , authorities);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
+
+        return securityUser;
+    }
+*/
+
 
 /*
 

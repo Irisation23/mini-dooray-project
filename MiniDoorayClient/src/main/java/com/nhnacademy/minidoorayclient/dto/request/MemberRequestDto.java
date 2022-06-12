@@ -1,4 +1,4 @@
-package com.nhnacademy.minidoorayclient.dto;
+package com.nhnacademy.minidoorayclient.dto.request;
 
 import lombok.*;
 
@@ -16,12 +16,10 @@ public class MemberRequestDto {
    @Size(max = 20)
    private String memberId;
    @NotBlank
-   @Size(max = 40)
+   @Size(max = 60)
    private String memberPassword;
    @NotBlank
-   @Size(max = 40)
+   @Size(max = 100)
    private String memberEmail;
-   @NotBlank
-   @Size(max = 5)
-   private String memberStatus;
+
 }

@@ -10,7 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/error")
+@RequestMapping("/")
 public class ErrorPageController implements ErrorController {
 
     public ModelAndView handleError(HttpServletRequest request) {

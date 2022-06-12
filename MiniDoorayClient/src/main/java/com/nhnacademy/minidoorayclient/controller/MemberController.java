@@ -1,6 +1,6 @@
 package com.nhnacademy.minidoorayclient.controller;
 
-import com.nhnacademy.minidoorayclient.dto.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
 import com.nhnacademy.minidoorayclient.exception.ValidationFailedException;
 import com.nhnacademy.minidoorayclient.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,7 @@ public class MemberController {
     @PostMapping("/member/register") // TODO : BindingResult final 이유는 ???
     ModelAndView doRegister(@Validated MemberRequestDto memberRequestDto , final BindingResult bindingResult) {
 
+        //TODO : 중복 아이디, 이메일은 SQL 단에서 처리 함. SQL Exception Handling 이 필요함.
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
@@ -33,5 +34,7 @@ public class MemberController {
         return modelAndView;
     }
 
-    // TODO : Member Update
+//
+//    @PostMapping("/member/{memberId}/update")
+//    ModelAndView updateMember(@Validated MemberRequestDto memberRequestDto , )
 }
