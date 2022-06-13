@@ -1,7 +1,7 @@
 package com.nhnacademy.minidoorayclient.service;
 
-import com.nhnacademy.minidoorayclient.adaptor.MemberAdaptor;
-import com.nhnacademy.minidoorayclient.dto.response.MemberResponseDto;
+import com.nhnacademy.minidoorayclient.adaptor.member.MemberAdaptor;
+import com.nhnacademy.minidoorayclient.dto.member.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclient.vo.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,9 +22,8 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        MemberResponseDto memberResponseDto = memberAdaptor.getByMemberId(username);
+        MemberResponseDto memberResponseDto = memberAdaptor.getByMemberName(username);
 
-        // TODO : 권한을 가져와야함.
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(memberResponseDto.getMemberAuthority());
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(simpleGrantedAuthority);

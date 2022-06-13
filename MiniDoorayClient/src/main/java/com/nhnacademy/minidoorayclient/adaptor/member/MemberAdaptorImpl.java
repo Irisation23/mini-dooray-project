@@ -1,11 +1,16 @@
-package com.nhnacademy.minidoorayclient.adaptor;
+package com.nhnacademy.minidoorayclient.adaptor.member;
 
-import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
-import com.nhnacademy.minidoorayclient.dto.response.MemberResponseDto;
+import com.nhnacademy.minidoorayclient.dto.member.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.member.response.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 
 
@@ -17,6 +22,7 @@ public class MemberAdaptorImpl implements MemberAdaptor {
 
     @Override
     public String register(MemberRequestDto memberRequestDto) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<MemberRequestDto> httpEntity = new HttpEntity<>(memberRequestDto, headers);
@@ -26,7 +32,7 @@ public class MemberAdaptorImpl implements MemberAdaptor {
                 , MemberResponseDto.class
         );
         MemberResponseDto memberResponseDto = response.getBody();
-        if(memberResponseDto == null) {
+        if (memberResponseDto == null) {
             throw new IllegalStateException();
         }
 
@@ -34,7 +40,8 @@ public class MemberAdaptorImpl implements MemberAdaptor {
     }
 
     @Override
-    public MemberResponseDto getByMemberId(String username) {
+    public MemberResponseDto getByMemberName(String username) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
@@ -50,6 +57,7 @@ public class MemberAdaptorImpl implements MemberAdaptor {
 
     @Override
     public MemberResponseDto findByMemberEmail(String email) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
@@ -62,4 +70,33 @@ public class MemberAdaptorImpl implements MemberAdaptor {
         return responseDtoHttpEntity.getBody();
     }
 
+    @Override
+    public List<MemberResponseDto> findAllMember() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<List<MemberResponseDto>> httpEntity = new HttpEntity<>(headers);
+        HttpEntity<List<MemberResponseDto>> responseDtoHttpEntityList = restTemplate.exchange("http://localhost:9090/member/list"
+                , HttpMethod.GET
+                , httpEntity
+                , new ParameterizedTypeReference<List<MemberResponseDto>>() {
+                });
+
+        return responseDtoHttpEntityList.getBody();
+    }
+
+    @Override
+    public MemberResponseDto getByMemberNo(Long memberNo) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+        HttpEntity<MemberResponseDto> responseDtoHttpEntityList = restTemplate.exchange("http://localhost:9090/member/memberNo={memberNo}"
+                , HttpMethod.GET
+                , httpEntity
+                , MemberResponseDto.class
+        );
+
+        return responseDtoHttpEntityList.getBody();
+    }
 }

@@ -1,6 +1,5 @@
 package com.nhnacademy.minidoorayclient.auth;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +15,6 @@ import java.util.List;
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-
-    public LoginSuccessHandler() {
-
-    }
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         super.onAuthenticationSuccess(request, response, authentication);
@@ -30,9 +24,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         HttpSession session = request.getSession(false);
 
-        //redisTemplate.opsForHash().put(session.getId(), "username", userDetails.getUsername());
-        //redisTemplate.opsForHash().put(session.getId(), "authority", authorities.get(0).getAuthority());
-
+        session.setAttribute("member",userDetails);
         session.setAttribute("username", userDetails.getUsername());
         session.setAttribute("authority", authorities.get(0).getAuthority());
     }

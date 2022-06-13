@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/project/register}" method="POST">
+
+    <h1>프로젝트</h1>
+    <label>
+        제목<br />
+        <input type="text" name="projectTitle" placeholder="프로젝트 제목을 입력해주세요.">
+    </label><br />
+
+    <label>
+        내용<br />
+        <input type="text" name="projectContent" placeholder="프로젝트 내용을 입력해주세요" size="500">
+    </label><br /><br />
+
+    <input type="submit" value="프로젝트 만들기">
+    <input type="reset" value="취소">
+</form>
+</body>
+</html>

@@ -1,17 +1,18 @@
-package com.nhnacademy.minidoorayclient.service;
+package com.nhnacademy.minidoorayclient.adaptor.member;
 
 import com.nhnacademy.minidoorayclient.dto.member.request.MemberRequestDto;
 import com.nhnacademy.minidoorayclient.dto.member.response.MemberResponseDto;
-import com.nhnacademy.minidoorayclient.vo.SecurityUser;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-public interface MemberService {
+public interface MemberAdaptor {
     String register(MemberRequestDto memberRequestDto);
 
-    SecurityUser findByMemberEmail(String email);
+    MemberResponseDto getByMemberName(String username);
+
+    MemberResponseDto findByMemberEmail(String email);
 
     List<MemberResponseDto> findAllMember();
 
+    MemberResponseDto getByMemberNo(Long memberNo);
 }

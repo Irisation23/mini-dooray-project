@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <table>
+     <tr th:each="member : ${memberList}">
+         <td th:text="${member.memberId}">Onions</td>
+         <td th:text="${member.memberEmail}">2.41</td>
+     </tr>
+ </table>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 package com.nhnacademy.minidoorayclient.service;
 
-import com.nhnacademy.minidoorayclient.adaptor.MemberAdaptor;
-import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
-import com.nhnacademy.minidoorayclient.dto.response.MemberResponseDto;
+import com.nhnacademy.minidoorayclient.adaptor.member.MemberAdaptor;
+import com.nhnacademy.minidoorayclient.dto.member.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.member.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclient.vo.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -60,36 +60,15 @@ public class MemberServiceImpl implements MemberService {
         securityContext.setAuthentication(authentication);
 
         return securityUser;
-        //TODO : -------------------------------로그인 해야 됨--------------------------------------------------------------
+    }
+
+    @Override
+    public List<MemberResponseDto> findAllMember() {
+        return memberAdaptor.findAllMember();
     }
 }
 
 /*
-    @Override
-    public SecurityUser checkExistEmail(String email) {
-        Resident resident = residentRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFindResidentException("해당 이메일을 가진 주민이 존재하지 않습니다."));
-
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(simpleGrantedAuthority);
-
-        SecurityUser securityUser = new SecurityUser(resident.getUserName(), resident.getPassword(),
-                resident.getEmail(), authorities, resident.getResidentSerialNumber());
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(securityUser
-                , "USER_PASSWORD"
-                , authorities);
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
-
-        return securityUser;
-    }
-*/
-
-
-/*
-
 # 로컬 저장소에서 원격 저장소 올리는 단계
 1. git add     (unstaged -> staged)
 2. git commit  (add 한 파일들만 커밋함)

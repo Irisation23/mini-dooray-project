@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>WelCome</h1>
+
+<h1>WelCome MiniDooray</h1>
+<h2 th:if="${session.member == null}"><a th:href="@{/auth/login}">로그인</a></h2>
+<h2 th:unless="${session.member == null} "><a th:href="@{/logout}">로그아웃</a></h2>
+<h2><a th:href="@{/member/register}">회원가입</a></h2>
+<h2><a th:href="@{/project/register}">프로젝트 만들기</a></h2>
+<h2><a th:href="@{/project/read/}">내가 만든 프로젝트 보기</a></h2>
+
 </body>
 </html>

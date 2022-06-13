@@ -1,6 +1,7 @@
 package com.nhnacademy.minidoorayclient.controller;
 
-import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.member.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.member.response.MemberResponseDto;
 import com.nhnacademy.minidoorayclient.exception.ValidationFailedException;
 import com.nhnacademy.minidoorayclient.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -11,20 +12,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/member/register")
-    ModelAndView register() {
+    public ModelAndView register() {
         return new ModelAndView("member-register");
     }
 
-    @PostMapping("/member/register") // TODO : BindingResult final 이유는 ???
-    ModelAndView doRegister(@Validated MemberRequestDto memberRequestDto , final BindingResult bindingResult) {
+    @PostMapping("/member/register")
+    public ModelAndView doRegister(@Validated MemberRequestDto memberRequestDto
+            , final BindingResult bindingResult) {
 
-        //TODO : 중복 아이디, 이메일은 SQL 단에서 처리 함. SQL Exception Handling 이 필요함.
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
@@ -34,7 +37,12 @@ public class MemberController {
         return modelAndView;
     }
 
-//
-//    @PostMapping("/member/{memberId}/update")
-//    ModelAndView updateMember(@Validated MemberRequestDto memberRequestDto , )
+    @GetMapping("/member/list")
+    public ModelAndView doFindAll() {
+
+        ModelAndView modelAndView = new ModelAndView("member-list");
+        List<MemberResponseDto> memberList = memberService.findAllMember();
+        modelAndView.addObject("memberList",memberList);
+        return modelAndView;
+    }
 }

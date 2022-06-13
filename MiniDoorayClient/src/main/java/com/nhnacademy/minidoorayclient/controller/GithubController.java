@@ -30,10 +30,8 @@ public class GithubController {
 
         HttpSession session = request.getSession(true);
 
-        session.setAttribute("securityUser",securityUser);
+        session.setAttribute("member",securityUser);
 
         return modelAndView;
     }
-
-
-    }
+}

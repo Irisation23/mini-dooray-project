@@ -1,6 +1,6 @@
 package com.nhnacademy.minidoorayclient.controller;
 
-import com.nhnacademy.minidoorayclient.dto.request.MemberRequestDto;
+import com.nhnacademy.minidoorayclient.dto.member.request.MemberRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -27,22 +27,9 @@ class MemberControllerTest {
     private MemberRequestDto mockMemberRequestDto;
 
     @Test
-    void doRegisterValidExceptionTest() throws Exception {
+    void doRegisterValidExceptionTest() {
         when(mockBindingResult.hasErrors()).thenReturn(true);
         assertThatThrownBy(() -> mockMemberController.doRegister(mockMemberRequestDto, mockBindingResult));
-    }
-
-    @Test
-    void doRegister() throws Exception {
-        // TODO :  해당 테스트 진행 해야함.
-        //  왜 String.class 는 String.valueOf() 로 감싸주어야 하나?
-        //  이 테스트는 Adaptor 테스트 부터 다시 역으로 올라와야 짤 수있다라는 생각이 듬.
-//        when(mockBindingResult.hasErrors()).thenReturn(false);
-//        PasswordEncoder passwordEncoder = spy(PasswordEncoder.class);
-//        when(passwordEncoder.encode(any())).thenReturn("1234");
-//        BCryptPasswordEncoder bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
-//        when(bCryptPasswordEncoder.encode("1234")).thenReturn("12345");
-//        assertThat(mockMemberController.doRegister(mockMemberRequestDto, mockBindingResult)).isInstanceOf(ModelAndView.class);
     }
 }
 

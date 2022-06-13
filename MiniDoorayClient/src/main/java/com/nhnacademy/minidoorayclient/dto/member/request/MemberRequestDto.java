@@ -1,4 +1,4 @@
-package com.nhnacademy.minidoorayclient.dto.request;
+package com.nhnacademy.minidoorayclient.dto.member.request;
 
 import lombok.*;
 
