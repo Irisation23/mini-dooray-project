@@ -25,6 +25,10 @@ public class Tag {
     @ManyToOne
     @JoinColumn(name = "task_no")
     private Task task;
+
+    @ManyToOne
+    @JoinColumn(name = "project_no")
+    private Project project;
 }
 
 

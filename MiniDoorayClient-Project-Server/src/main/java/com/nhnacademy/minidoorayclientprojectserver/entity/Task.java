@@ -20,6 +20,7 @@ public class Task {
 
     @Id
     @Column(name = "task_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskNo;
 
     @Column(name = "task_title")
@@ -28,13 +29,19 @@ public class Task {
     @Column(name = "task_date")
     private LocalDate taskDate;
 
+    @Column(name = "task_content")
+    private String taskContent;
+
+    @Column(name = "task_writer")
+    private String taskWriter;
+
     @ManyToOne
     @JoinColumn(name = "project_no")
     private Project project;
 
     @OneToOne
     @JoinColumn(name = "milestone_no")
-    private MileStone mileStone;
+    private MileStone milestone;
 
     @OneToMany(mappedBy = "task")
     @JsonIgnore

@@ -24,5 +24,5 @@ public class ProjectRequestDto {
     private Long adminNo;
     @NotBlank
     @Size(max = 20)
-    private String adminId;
+    private String adminName;
 }

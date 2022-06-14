@@ -1,7 +1,7 @@
 package com.nhnacademy.minidoorayclientprojectserver.exception;
 
-public class NotFindProjectMemberException extends IllegalArgumentException{
-    public NotFindProjectMemberException(String s) {
+public class NotFindProjectException extends IllegalArgumentException{
+    public NotFindProjectException(String s) {
         super(s);
     }
 }

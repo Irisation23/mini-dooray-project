@@ -1,7 +1,6 @@
 package com.nhnacademy.minidoorayclientprojectserver.entity;
 
 import com.nhnacademy.minidoorayclientprojectserver.entity.authority.Authority;
-import com.nhnacademy.minidoorayclientprojectserver.entity.status.Status;
 import com.sun.istack.Nullable;
 import lombok.*;
 
@@ -17,19 +16,16 @@ import java.io.Serializable;
 @Entity
 @Table(name = "project_member")
 public class ProjectMember {
-
     @NotNull
     @EmbeddedId
-    private ProjectMemberPk projectMemberPK;
+    private ProjectMemberPk projectMemberPk;
 
-    @Enumerated
-    @Column(name = "project_member_authority")
-    private Authority authority;
+    @Column(name = "project_member_name")
+    private String projectMemberName;
 
-    @MapsId("projectMemberNo")
+    @MapsId("projectNo")
     @ManyToOne
     @JoinColumn(name = "project_no")
-    @Nullable
     private Project project;
 
     @NoArgsConstructor

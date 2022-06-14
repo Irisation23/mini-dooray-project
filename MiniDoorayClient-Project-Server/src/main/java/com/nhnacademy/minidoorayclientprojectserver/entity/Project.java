@@ -2,14 +2,13 @@ package com.nhnacademy.minidoorayclientprojectserver.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nhnacademy.minidoorayclientprojectserver.entity.status.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Builder
@@ -21,8 +20,15 @@ import java.util.List;
 public class Project {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_no")
     private Long projectNo;
+
+    @Column(name = "admin_no")
+    private Long adminNo;
+
+    @Column(name = "admin_name")
+    private String adminName;
 
     @Column(name = "project_title")
     private String projectTitle;
@@ -31,11 +37,11 @@ public class Project {
     private String projectContent;
 
     @Column(name = "project_status")
-    private String projectStatus;
+    @Enumerated(EnumType.STRING)
+    private Status projectStatus;
 
     @OneToMany(mappedBy = "project")
     @JsonIgnore
-    @NotEmpty
     private List<ProjectMember> projectMemberList;
 
     @OneToMany(mappedBy = "project")
@@ -46,5 +52,8 @@ public class Project {
     @JsonIgnore
     private List<MileStone> mileStoneList;
 
+    @OneToMany(mappedBy = "project")
+    @JsonIgnore
+    private List<Tag> tagList;
 }
 

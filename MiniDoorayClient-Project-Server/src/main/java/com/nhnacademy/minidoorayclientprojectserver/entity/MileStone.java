@@ -18,9 +18,6 @@ public class MileStone {
     @Column(name = "milestone_no")
     private Long milestoneNo;
 
-    @Column(name = "project_no")
-    private Long projectNo;
-
     @Column(name = "milestone_status")
     private String milestoneStatus;
 
