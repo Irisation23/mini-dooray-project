@@ -22,7 +22,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/member/register", "/").permitAll()
+                .antMatchers("/member/register").permitAll()
                 .anyRequest().hasAuthority("ROLE_USER")
                 .and()
                 .formLogin()
@@ -31,14 +31,12 @@ public class SecurityConfig {
                 .passwordParameter("memberPassword")
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
                 .csrf().disable();
-
         http.headers()
                 .frameOptions()
                 .sameOrigin()

@@ -22,9 +22,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
 
-        HttpSession session = request.getSession(false);
-
-        session.setAttribute("member",userDetails);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("member", userDetails);
         session.setAttribute("username", userDetails.getUsername());
         session.setAttribute("authority", authorities.get(0).getAuthority());
     }
