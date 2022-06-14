@@ -1,5 +1,6 @@
 package com.nhnacademy.minidoorayclientserver.dto.response;
 
+import com.nhnacademy.minidoorayclientserver.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +34,14 @@ public class MemberResponseDto {
     @NotNull
     @Size(max = 10)
     private String memberAuthority;
+
+    public MemberResponseDto(Member member) {
+
+        this.memberNo = member.getMemberNo();
+        this.memberId = member.getMemberId();
+        this.memberPassword = member.getMemberPassword();
+        this.memberEmail = member.getMemberEmail();
+        this.memberStatus = member.getMemberStatus().toString();
+        this.memberAuthority = member.getMemberAuthority().toString();
+    }
 }

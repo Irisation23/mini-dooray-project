@@ -16,9 +16,8 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "member")
 public class Member {
 
-    //TODO 엔티티 클래스 단에서 Valid 가능??
     @Id
-    @Column(name = "member_number")
+    @Column(name = "member_no")
     @GeneratedValue(strategy = IDENTITY)
     private Long memberNo;
 

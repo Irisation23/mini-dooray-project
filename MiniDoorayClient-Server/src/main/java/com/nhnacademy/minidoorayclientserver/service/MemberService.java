@@ -4,6 +4,8 @@ import com.nhnacademy.minidoorayclientserver.dto.request.MemberRegisterRequestDt
 import com.nhnacademy.minidoorayclientserver.dto.request.MemberUpdateRequestDto;
 import com.nhnacademy.minidoorayclientserver.dto.response.MemberResponseDto;
 
+import java.util.List;
+
 public interface MemberService {
 
     MemberResponseDto registerToMember(MemberRegisterRequestDto memberRegisterRequestDto);
@@ -13,4 +15,8 @@ public interface MemberService {
     MemberResponseDto findByMemberEmail(String email);
 
     MemberResponseDto getByMemberId(String memberId);
+
+    List<MemberResponseDto> getMemberList();
+
+    MemberResponseDto getByMemberNo(Long memberNo);
 }

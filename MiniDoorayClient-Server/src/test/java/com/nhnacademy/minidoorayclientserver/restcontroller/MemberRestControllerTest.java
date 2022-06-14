@@ -153,15 +153,4 @@ class MemberRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-
-    @Test
-    void findByMemberEmailValidException() throws Exception {
-        //given(memberRestController.findByMemberEmail(any())).isEqualTo(new ValidationFailedException());
-
-        mockMvc.perform(get("/member?email=  ")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
-    }
-
-
 }

@@ -24,3 +24,6 @@ public class MemberRegisterRequestDto {
     @Size(max = 100)
     private String memberEmail;
 }
+
+
+

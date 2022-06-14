@@ -15,6 +15,7 @@
     <description>MiniDoorayClient-Server</description>
     <properties>
         <java.version>11</java.version>
+        <jacoco.version>0.8.6</jacoco.version>
     </properties>
     <dependencies>
         <dependency>

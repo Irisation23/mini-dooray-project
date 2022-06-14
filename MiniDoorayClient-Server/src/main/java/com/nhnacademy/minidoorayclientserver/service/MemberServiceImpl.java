@@ -14,6 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -46,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponseDto updateToMember(MemberUpdateRequestDto memberUpdateRequestDto, Long memberNo) {
 
         Member member = memberRepository.findById(memberNo)
-                .orElseThrow(() ->new NotFindMemberException("해당 회원은 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFindMemberException("해당 회원은 존재하지 않습니다."));
 
         Member updateMember = Member.builder()
                 .memberNo(member.getMemberNo())
@@ -81,6 +89,29 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponseDto getByMemberId(String memberId) {
 
         Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFindMemberByMemberIdException("해당 아디를 가진 회원은 존재하지 않습니다."));
+
+        return MemberResponseDto.builder()
+                .memberNo(member.getMemberNo())
+                .memberId(member.getMemberId())
+                .memberPassword(member.getMemberPassword())
+                .memberEmail(member.getMemberEmail())
+                .memberStatus(member.getMemberStatus().toString())
+                .memberAuthority(member.getMemberAuthority().toString())
+                .build();
+    }
+
+    @Override
+    public List<MemberResponseDto> getMemberList() {
+        return memberRepository.findAll()
+                .stream()
+                .map(MemberResponseDto::new)
+                .collect(toList());
+    }
+
+    @Override
+    public MemberResponseDto getByMemberNo(Long memberNo) {
+        Member member = memberRepository.getByMemberNo(memberNo)
                 .orElseThrow(() -> new NotFindMemberByMemberIdException("해당 아디를 가진 회원은 존재하지 않습니다."));
 
         return MemberResponseDto.builder()

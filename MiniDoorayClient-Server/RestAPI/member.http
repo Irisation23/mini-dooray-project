@@ -1,0 +1,9 @@
+POST /member/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "memberId" : "kim",
+  "memberPassword" : "1234",
+  "memberEmail" : "bunsung92@naver.com"
+}
+
